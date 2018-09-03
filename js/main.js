@@ -20,12 +20,6 @@ oneBigEye.addChild(background);
 var scene1 = new createjs.Container();
 
 
- var graphics = new createjs.Graphics().beginFill("#000").drawRect(150,200,10,37);
- var btn1 = new createjs.Shape(graphics);
-
-btn1.addEventListener('click', callSceneOne);
-//btn1.scaleX = 2;
-
 var whitey = new createjs.Bitmap('img/whitey.png');
 whitey.x = 215;
 whitey.y = 80;
@@ -40,45 +34,63 @@ var glitchBod = new createjs.Bitmap('img/glitchBod.png');
 glitchBod.x = 215;
 glitchBod.y = 80;
 
-var logo = new createjs.Bitmap('img/logo_black.png');
-logo.x = 120;
-logo.y = 215;
-logo.alpha = 1;
+
+
+var graphics = new createjs.Graphics().beginFill("#000").drawRect(150,200,300,37);
+var btn1 = new createjs.Shape(graphics);
+btn1.alpha = 0;
+
+var hacker = new createjs.Bitmap('img/hacker_white.png');
+hacker.x = 130;
+hacker.y = 202;
+hacker.alpha = 0;
 
 var jpHacker = new createjs.Bitmap('img/jp_hacker.png');
 jpHacker.x = -150;
 jpHacker.y = -100;
 
-
-//logo.addEventListener('click', callSceneOne);
-
-
 var pulse0 = new createjs.Bitmap('img/pulse0.png');
-pulse0.y = 185;
-pulse0.x = 120;
+pulse0.y = 168;
+pulse0.x = 130;
 pulse0.alpha = 0;
+
+
+/////// HACKER LOGO MOVIECLIP
+var hacker_logo = new createjs.MovieClip();
+hacker_logo.timeline.addTween(createjs.Tween.get(pulse0).to({alpha:1}, 10));
+hacker_logo.timeline.addTween(createjs.Tween.get(hacker).wait(25).to({alpha:1}, 10));
+hacker_logo.timeline.addTween(createjs.Tween.get(btn1).to({alpha:1, scaleX:1.3, x:-70}, 10));
+
+
+	//createjs.Tween.get(hacker).to({alpha:1}, 0.5),
+	//createjs.Tween.get(pulse0).to({alpha:1}, 0.2)
+
+//hacker_logo.alpha = 0.5;
+//hacker_logo.play();
+hacker_logo.addEventListener('click', callSceneOne);
+
 
 /////////////////////  STAGE ADDITIONS //////////////////////////
 
 oneBigEye.addChild(scene1);
-scene1.addChild(btn1    );
+scene1.addChild(hacker_logo  );
 scene1.addChild(whitey, whiteyRed, glitchBod);
 scene1.addChild( jpHacker);
-scene1.addChild(pulse0);
 
 
 
-var sc1TL = new TimelineMax(); 
+var sc1TL = new TimelineMax(); // USING GREEN SOCK >> REMEMBER Property settings difference
 	sc1TL
 	.to(whiteyRed, 0.5, {alpha:1})
 	.to(whiteyRed, 0.1, {alpha:0})
 	.to(whiteyRed, 0.1, {alpha:1})
 	.to(whiteyRed, 0.1, {alpha:0})
 	.to(whiteyRed, 0.1, {alpha:1})
+	.to(btn1, 1, {width:"200px"})
 	.to(whitey, 3, {alpha:1, x:200})
 	.to(whitey, 3, {x:240, alpha:0.5})
 	.to(whitey, 3, {x:200, alpha:1})
-	.to(btn1, 1, {y:0})
+	
 ;
 
 
@@ -114,19 +126,15 @@ function onComplete(){console.log('logo revealed'); }
 
 var scene2 = new createjs.Container();
 
-var graphics2 = new createjs.Graphics().beginFill("#000F10").drawCircle(50, 50, 50);
-var btn2 = new createjs.Shape(graphics2);
-///////////////// BUTTON CALLS
-btn2.addEventListener('click', callSceneTwo);
 
 
-var lipsMask = new createjs.Shape();
-lipsMask.graphics.beginFill('#333').drawCircle(200,200,100);
-lipsMask.cache(0,0,lipsMask.width, lipsMask.height);
+//var lipsMask = new createjs.Shape();
+//lipsMask.graphics.beginFill('#333').drawCircle(200,200,100);
+//lipsMask.cache(0,0,lipsMask.width, lipsMask.height);
 
 var cryptoFace = new createjs.Bitmap('img/egypt-lips.png');
-cryptoFace.scaleX = 0.1;
-cryptoFace.scaleY = 0.1;
+cryptoFace.scaleX = 1;
+cryptoFace.scaleY = 1;
 cryptoFace.x = 200;
 cryptoFace.y = 200;
 cryptoFace.alpha = 0;
@@ -148,10 +156,19 @@ cryptoFan.regY = 78;
 cryptoFan.alpha = 0;
 
 
-var logosc2 = logo.clone();
+
+var graphics2 = new createjs.Graphics().beginFill("#000").drawRect(150,200,300,37);
+var btn2 = new createjs.Shape(graphics2);
+///////////////// BUTTON CALLS
+btn2.addEventListener('click', callSceneTwo);
+
+
+var logosc2 = hacker.clone();
 logosc2.x = 50;
 logosc2.y = 50;
 logosc2.alpha = 0;
+
+
 
 //var wealthClip = new createjs.MovieClip({loop:-1});
 
