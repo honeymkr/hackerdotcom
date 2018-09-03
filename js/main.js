@@ -14,22 +14,17 @@ background.x = -50;
 oneBigEye.addChild(background);
 
 
-
-
-
 ////////  SCENE 1 //////////
 
 
 var scene1 = new createjs.Container();
 
 
-
  var graphics = new createjs.Graphics().beginFill("#000").drawRect(150,200,10,37);
  var btn1 = new createjs.Shape(graphics);
 
-
- btn1.addEventListener('click', callSceneOne);
-
+btn1.addEventListener('click', callSceneOne);
+//btn1.scaleX = 2;
 
 var whitey = new createjs.Bitmap('img/whitey.png');
 whitey.x = 215;
@@ -66,7 +61,7 @@ pulse0.alpha = 0;
 /////////////////////  STAGE ADDITIONS //////////////////////////
 
 oneBigEye.addChild(scene1);
-scene1.addChild(btn1);
+scene1.addChild(btn1    );
 scene1.addChild(whitey, whiteyRed, glitchBod);
 scene1.addChild( jpHacker);
 scene1.addChild(pulse0);
@@ -83,7 +78,7 @@ var sc1TL = new TimelineMax();
 	.to(whitey, 3, {alpha:1, x:200})
 	.to(whitey, 3, {x:240, alpha:0.5})
 	.to(whitey, 3, {x:200, alpha:1})
-	.to(graphics, 0.3, {width:"470px"}); 
+	.to(btn1, 1, {y:0})
 ;
 
 
@@ -114,11 +109,6 @@ function onComplete(){console.log('logo revealed'); }
 //createjs.Tween.get(whitey).to({x:200, alpha:1}, 3000).to({x:240, alpha:0.5}, 3000).to({x:200, alpha:1}, 3000),
 
 //createjs.Tween.get(pulse0).wait(2000).to({alpha:1}));
-
-
-
-
-
 
 ////////  SCENE 2 ASSETS    //////////
 
@@ -163,7 +153,14 @@ logosc2.x = 50;
 logosc2.y = 50;
 logosc2.alpha = 0;
 
-var instantWealth = new createjs.Bitmap('img/instantwealth.png');
+//var wealthClip = new createjs.MovieClip({loop:-1});
+
+ var mc = new createjs.MovieClip();
+ stage.addChild(mc);
+
+
+
+//var instantWealth = new createjs.Bitmap('img/instantwealth.png');
 
 // think the fan needs its own tween to add to sc2TL
 
@@ -171,25 +168,17 @@ var sc2TL = new TimelineMax({ paused:true });
 
 sc2TL
 	.to(cryptoFace, 1, {alpha:1})
-	.to(instantWealth, 1, {alpha:1})
+	//.to(instantWealth, 1, {alpha:1})
 	.to(cryptoFan, 1, {rotation:360})
 	.to(logosc2, 1, {alpha:1})
 	;
-
-
-
-//var sc2 = new createjs.Timeline(
-
-//createjs.Tween.get(cryptoFace).to({alpha:1}).to({scaleX:0.5, scaleY:0.5}, 3000),
-//createjs.Tween.get(cryptoFan).to({alpha:1}, 200),
-//createjs.Tween.get(cryptoFan, {loop:-1, paused:false }).to({rotation:360}, 500), );
 
 //////////////////// STAGE ADDITIONS  //////////////////////////////
 
 oneBigEye.addChild(scene2);
 scene2.addChild(cryptoFace, cryptoFan);
 scene2.addChild(btn2, logosc2);
-scene2.addChild(instantWealth);
+//scene2.addChild(mc);
 
 
 
@@ -293,9 +282,10 @@ console.log("start first anime ");
 
 
 
+/// DIVE MORE INTO TICKER< HUH?
 
 
-createjs.Ticker.setFPS(60);
+//createjs.Ticker.setFPS(60);
 createjs.Ticker.addEventListener("tick", stage);
 
 stage.update();
