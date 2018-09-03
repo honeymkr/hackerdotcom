@@ -143,21 +143,16 @@ var get_rich = new createjs.Bitmap('img/getrich-wh.png');
 get_rich.x = 200;
 get_rich.y = 450;
 
-var jp_buynow = new createjs.Bitmap('img/jp_buynow.png');
-jp_buynow.x = 220;
-jp_buynow.y = 105;
-
-
 var graphics2 = new createjs.Graphics().beginFill("#000")
-.drawRect(150,220,400,37);
+.drawRect(175,182,400,37);
 var btn2 = new createjs.Shape(graphics2);
 ///////////////// BUTTON CALLS
 btn2.addEventListener('click', callSceneTwo);
 
 
 var logosc2 = hacker.clone();
-logosc2.x = 150;
-logosc2.y = 220;
+logosc2.x = 175;
+logosc2.y = 182;
 logosc2.alpha = 0;
 //var wealthClip = new createjs.MovieClip({loop:-1});
 
@@ -219,7 +214,7 @@ sc2TL
 oneBigEye.addChild(scene2);
 scene2.addChild(cryptoFace, cryptoFan);
 scene2.addChild(cryptoFan, cryptoFan2, cryptoFan3);
-scene2.addChild(payment, get_rich, jp_buynow, miner, instant);
+scene2.addChild(payment, get_rich, miner, instant);
 
 scene2.addChild(btn2, logosc2);
 
@@ -229,8 +224,8 @@ scene2.addChild(btn2, logosc2);
 var scene3 = new createjs.Container();
 
  var sphinxy = new createjs.Bitmap('img/sphinx.png');
- sphinxy.x = 70;
- sphinxy.y = 170;
+ sphinxy.x = 160;
+ sphinxy.y = 210;
  sphinxy.scaleX = 0.9;
  sphinxy.scaleY = 0.9;
  sphinxy.alpha = 0;
@@ -245,20 +240,47 @@ buyNow.alpha = 0;
 //buyBroken.y = 180;
 
 var secrets = new createjs.Bitmap('img/$E¢R3T$_white.png');
-secrets.y = 270;
-secrets.x = 70;
+secrets.y = 248;
+secrets.x = 340;
 
 var moMoney = get_rich.clone();
-moMoney.x = 170;
-moMoney.y = 500;
+moMoney.x = 70;
+moMoney.y = 200;
 
+var newAlgo = new createjs.Bitmap('img/new_algos.png');
+newAlgo.x = 15;
+newAlgo.y = 270;
 
- var graphics3 = new createjs.Graphics().beginFill("#000").drawRect(300,200,400, 37 );
+var babyFace = new createjs.Bitmap('img/babyface.png');
+babyFace.x = 300;
+babyFace.y = 212;
+babyFace.alpha = 0.5;
+
+var jp_buynow = new createjs.Bitmap('img/jp_buynow.png');
+jp_buynow.x = 220;
+jp_buynow.y = 505;
+
+var broke = new createjs.Bitmap('img/brokenlink-sm.png');
+broke.x = 300;
+broke.y = 475;
+broke.alpha = 1;
+
+var broke2 = broke.clone();
+broke2.x = 370;
+broke2.y = 475;
+broke2.alpha = 1;
+
+var broke3 = broke.clone();
+broke3.x = 440;
+broke3.y = 475;
+broke3.alpha = 1;
+
+ var graphics3 = new createjs.Graphics().beginFill("#000").drawRect(160,340,400, 37 );
  var btn3 = new createjs.Shape(graphics3);
 
  var logosc3 = hacker.clone();
- logosc3.x = 300;
- logosc3.y = 200;
+ logosc3.x = 160;
+ logosc3.y = 340;
  logosc3.alpha = 0;
 
  btn3.addEventListener('click', callSceneThree); 
@@ -279,9 +301,9 @@ sc3TL
 
  oneBigEye.addChild(scene3)
 
- scene3.addChild(sphinxy);
- scene3.addChild(btn3, logosc3 );
- scene3.addChild(secrets, moMoney, buyNow);
+ scene3.addChild(sphinxy, babyFace);
+ scene3.addChild(btn3, logosc3,  broke, broke2, broke3, jp_buynow );
+ scene3.addChild(secrets, moMoney, buyNow, newAlgo);
 
 
 /////////////////////   CONTROLS FOR SCENES _ SWITCHING BETWEEN
