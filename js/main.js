@@ -222,39 +222,56 @@ scene2.addChild(cryptoFan, cryptoFan2, cryptoFan3);
 scene2.addChild(payment, get_rich, jp_buynow, miner, instant);
 
 scene2.addChild(btn2, logosc2);
-//scene2.addChild(mc);
-
-
-
 
 ////////  SCENE 3 //////////
 
 
 var scene3 = new createjs.Container();
 
- var graphics3 = new createjs.Graphics().beginFill("#ff00ff").drawCircle(0,0,50);
- var btn3 = new createjs.Shape(graphics3);
- 	btn3.addEventListener('click', callSceneThree); 
-
-
-
  var sphinxy = new createjs.Bitmap('img/sphinx.png');
  sphinxy.x = 70;
  sphinxy.y = 170;
- sphinxy.alpha = 0.5;
+ sphinxy.alpha = 0;
 
  var buyNow = new createjs.Bitmap('img/buynow-red.png');
- var buyBroken = new createjs.Bitmap('img/buy-now-broken.png');
 buyNow.x = 100;
 buyNow.y = 100;
+buyNow.alpha = 0;
 
-buyBroken.x = 180;
-buyBroken.y = 180;
+//var buyBroken = new createjs.Bitmap('img/buy-now-broken.png');
+//buyBroken.x = 180;
+//buyBroken.y = 180;
+
+
+
+ var graphics3 = new createjs.Graphics().beginFill("#000").drawRect(300,200,400, 37 );
+ var btn3 = new createjs.Shape(graphics3);
+
+ var logosc3 = hacker.clone();
+ logosc3.x = 300;
+ logosc3.y = 200;
+ logosc3.alpha = 0;
+
+ btn3.addEventListener('click', callSceneThree); 
+
+
+
+var sc3TL = new TimelineMax({ paused:true });
+
+sc3TL
+	.to(sphinxy, 1, {alpha:1})
+	.to(buyNow, 1, {alpha:1})
+	.to(logosc3, 1, {alpha:1})  ;
+
+
+
+
+
 
  oneBigEye.addChild(scene3)
- scene3.addChild(btn3);
+ scene3.addChild(btn3, logosc3 );
  scene3.addChild(sphinxy);
- scene3.addChild(buyNow, buyBroken);
+ scene3.addChild(buyNow);
 
 
 /////////////////////   CONTROLS FOR SCENES _ SWITCHING BETWEEN
@@ -273,7 +290,9 @@ createjs.Tween.get(oneBigEye).to({x:-900 }, 2500, createjs.Ease.cubicInOut).call
 
 
 
-function runSceneTwo(){  sc2TL.play(); console.log('scene 2 called');  };
+function runSceneTwo(){  
+	sc2TL.play(); 
+	console.log('scene 2 called');  };
 
 
 function callSceneTwo(event){
@@ -282,12 +301,9 @@ function callSceneTwo(event){
 };
 
 function runSceneThree( ) {
+	sc3TL.play();
+	console.log('scene 3 called');
 
-var sc3 = new createjs.Timeline(
-
-	createjs.Tween.get(sphinxy).to({alpha:1}, 2000),
-
- );
  }; 
 
 
@@ -299,7 +315,7 @@ function callSceneThree(event){
 
 function runSceneOne ( )  {
 	sc1TL.play();
-console.log("start first anime ");
+console.log("scene1 called ");
 
  };
 
