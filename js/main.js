@@ -231,17 +231,26 @@ var scene3 = new createjs.Container();
  var sphinxy = new createjs.Bitmap('img/sphinx.png');
  sphinxy.x = 70;
  sphinxy.y = 170;
+ sphinxy.scaleX = 0.9;
+ sphinxy.scaleY = 0.9;
  sphinxy.alpha = 0;
 
  var buyNow = new createjs.Bitmap('img/buynow-red.png');
-buyNow.x = 100;
-buyNow.y = 100;
+buyNow.x = 190;
+buyNow.y = 80;
 buyNow.alpha = 0;
 
 //var buyBroken = new createjs.Bitmap('img/buy-now-broken.png');
 //buyBroken.x = 180;
 //buyBroken.y = 180;
 
+var secrets = new createjs.Bitmap('img/$E¢R3T$_white.png');
+secrets.y = 270;
+secrets.x = 70;
+
+var moMoney = get_rich.clone();
+moMoney.x = 170;
+moMoney.y = 500;
 
 
  var graphics3 = new createjs.Graphics().beginFill("#000").drawRect(300,200,400, 37 );
@@ -269,9 +278,10 @@ sc3TL
 
 
  oneBigEye.addChild(scene3)
- scene3.addChild(btn3, logosc3 );
+
  scene3.addChild(sphinxy);
- scene3.addChild(buyNow);
+ scene3.addChild(btn3, logosc3 );
+ scene3.addChild(secrets, moMoney, buyNow);
 
 
 /////////////////////   CONTROLS FOR SCENES _ SWITCHING BETWEEN
