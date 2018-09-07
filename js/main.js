@@ -133,11 +133,39 @@ var scene2 = new createjs.Container();
 
 
 var cryptoFace = new createjs.Bitmap('img/egypt-lips.png');
-cryptoFace.scaleX = 1;
-cryptoFace.scaleY = 1;
-cryptoFace.x = 160;
-cryptoFace.y = 180;
-cryptoFace.alpha = 0;
+cryptoFace.scaleX = 1;   cryptoFace.scaleY = 1;
+cryptoFace.x = 160;   cryptoFace.y = 180;
+//cryptoFace.alpha = 0;
+
+
+var cryptoMask = new createjs.Shape();  // SHAPE
+var mskC = new createjs.Container();     // CONTAINER
+mskC.addChild(cryptoMask);
+
+
+cryptoFace.image.onload = function() {   // LOAD, TWEEN, MASK UPDATE
+
+  cryptoMask.graphics.beginFill('#fff').drawRect(0, 0, 466, 30);
+  mskC.cache(0,0,466,30);
+
+createjs.Tween.get(cryptoMask, {loop:true}).to({y:300}, 1500, createjs.Ease.quadOutIn)
+  	.on("change", function() { 
+    	mskC.cache(0,0,209,468); 
+      cryptoFace.cache(0,0,cryptoFace.image.width,cryptoFace.image.height);
+
+    });
+
+  cryptoFace.filters = [
+            new createjs.AlphaMaskFilter(mskC.cacheCanvas)
+          ];
+
+  cryptoFace.cache(0,0,cryptoFace.image.width,cryptoFace.image.height);
+
+}
+
+
+
+
 
 
 var cryptoFan = new createjs.Bitmap('img/miningfan_clean3.png');
@@ -252,7 +280,7 @@ sc2TL
 //////////////////// STAGE ADDITIONS  //////////////////////////////
 
 oneBigEye.addChild(scene2);
-scene2.addChild(cryptoFace, cryptoFan);
+scene2.addChild(cryptoFace);
 scene2.addChild(cryptoFan, cryptoFan2, cryptoFan3);
 scene2.addChild(payment, get_rich, miner, instant);
 
