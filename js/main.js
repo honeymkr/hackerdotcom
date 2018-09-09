@@ -45,7 +45,7 @@ var graphics = new createjs.Graphics().beginFill("#000").drawRect(150,200,300,37
 var btn1 = new createjs.Shape(graphics);
 btn1.alpha = 1;
 btn1.scaleX = 0.1;
-
+btn1.cursor = 'pointer';
 
 var hacker = new createjs.Bitmap('img/hacker_white.png');
 hacker.x = 130;
@@ -130,6 +130,8 @@ var cryptoMask = new createjs.Shape();  // SHAPE
 var mskC = new createjs.Container();     // CONTAINER
 mskC.addChild(cryptoMask);
 
+/// EITHER BREAK THE FACE INTO TWO PIECES AND ANIMATE SIMPLE 
+//OR FIGURE OUT CUSTOM MASK SHAPE
 
 cryptoFace.image.onload = function() {   // LOAD, TWEEN, MASK UPDATE
 
