@@ -44,6 +44,7 @@ glitchBod.alpha = 0;
 var graphics = new createjs.Graphics().beginFill("#000").drawRect(150,200,300,37);
 var btn1 = new createjs.Shape(graphics);
 btn1.alpha = 1;
+btn1.scaleX = 0.1;
 
 
 var hacker = new createjs.Bitmap('img/hacker_white.png');
@@ -63,25 +64,12 @@ pulse0.x = 150;
 pulse0.alpha = 0;
 
 
-/////// HACKER LOGO MOVIECLIP
-var hacker_logo = new createjs.MovieClip();
-//hacker_logo.timeline.addLabel("Start");
-//hacker_logo.timeline.addTween(  createjs.Tween.get(pulse0).to({alpha:1}, 10));
-//hacker_logo.timeline.addLabel("Middle");
-//hacker_logo.timeline.addTween(createjs.Tween.get(hacker).wait(25).to({alpha:1}, 10));
-//hacker_logo.timeline.addLabel("End");
-//hacker_logo.timeline.addTween(createjs.Tween.get(btn1).to({alpha:1, scaleX:1.3, x:-70}, 10));
-
 btn1.addEventListener('click', callSceneOne);
 
+// ADD TIMEOUT HERE =>
 
+var timeOut1 =  setTimeout(callSceneOne, 5000);
 
-//var helper = new createjs.ButtonHelper(myInstance, "out", "over", "down", false, myInstance, "hit");
-
-//var helper = new createjs.ButtonHelper(hacker_logo, "Start", "Middle", "End", true, hacker_logo, "hit");
-
-//hacker_logo.addEventListener("click", callSceneOne);
- 
 
 /////////////////////  STAGE ADDITIONS //////////////////////////
 
@@ -148,9 +136,9 @@ cryptoFace.image.onload = function() {   // LOAD, TWEEN, MASK UPDATE
   cryptoMask.graphics.beginFill('#fff').drawRect(0, 0, 466, 30);
   mskC.cache(0,0,466,30);
 
-createjs.Tween.get(cryptoMask, {loop:true}).to({y:300}, 1500, createjs.Ease.quadOutIn)
+createjs.Tween.get(cryptoMask, {loop:true}).to({y:300}, 1000, createjs.Ease.quadOutIn)
   	.on("change", function() { 
-    	mskC.cache(0,0,209,468); 
+    	mskC.cache(0,0,300,276); 
       cryptoFace.cache(0,0,cryptoFace.image.width,cryptoFace.image.height);
 
     });
@@ -162,9 +150,6 @@ createjs.Tween.get(cryptoMask, {loop:true}).to({y:300}, 1500, createjs.Ease.quad
   cryptoFace.cache(0,0,cryptoFace.image.width,cryptoFace.image.height);
 
 }
-
-
-
 
 
 
@@ -191,9 +176,11 @@ cryptoFan3.y = 200;
 var panic = new createjs.Timeline(
 createjs.Tween.get(cryptoFan, {loop:-1 })
 .to({rotation:-360}, 500));
+
 var panic2 = new createjs.Timeline(
 createjs.Tween.get(cryptoFan2, {loop:-1 })
 .to({rotation:-360}, 700));
+
 var panic3 = new createjs.Timeline(
 createjs.Tween.get(cryptoFan3, {loop:-1 })
 .to({rotation:-360}, 900));
@@ -262,7 +249,7 @@ createjs.Tween.get(imgSheen, {loop:true}).to({y:300}, 1500, createjs.Ease.quadOu
 
 var miner = new createjs.Bitmap('img/antminer.png');
 miner.x = 440;
-miner.y = 480;
+miner.y = 80;
 
 
 //var instantWealth = new createjs.Bitmap('img/instantwealth.png');
@@ -271,10 +258,11 @@ miner.y = 480;
 var sc2TL = new TimelineMax({ paused:true, loop:-1 });
 
 sc2TL
-	.to(cryptoFace, 1, {alpha:1})
+	.to(cryptoFace, 0.5, {alpha:1})
 	//.to(instantWealth, 1, {alpha:1})
-	.to(cryptoFan, 1, {rotation:360})
-	.to(logosc2, 1, {alpha:1})
+	.to(cryptoFan, 0.5, {rotation:360})
+	.to(logosc2, 0.5, {alpha:1})
+	.to(miner, 0.3, {rotation:360}, '-=1.5')
 	;
 
 //////////////////// STAGE ADDITIONS  //////////////////////////////
@@ -291,12 +279,45 @@ scene2.addChild(btn2, logosc2);
 
 var scene3 = new createjs.Container();
 
+
+
  var sphinxy = new createjs.Bitmap('img/sphinx.png');
  sphinxy.x = 160;
  sphinxy.y = 210;
  sphinxy.scaleX = 0.9;
  sphinxy.scaleY = 0.9;
- sphinxy.alpha = 0;
+ sphinxy.alpha = 1;
+
+
+var sphMask = new createjs.Shape();  // SHAPE
+var sphC = new createjs.Container();     // CONTAINER
+sphC.addChild(sphMask);
+
+
+sphinxy.image.onload = function() {   // LOAD, TWEEN, MASK UPDATE
+
+  sphMask.graphics.beginFill('#fff').drawRect(0, 0, 427, 30);
+  sphC.cache(0,0,427,30);
+
+
+createjs.Tween.get(sphMask, {loop:true}).to({scaleY:20}, 1500, createjs.Ease.quadOutIn)
+  	.on("change", function() { 
+    	sphC.cache(0,0,427,358); 
+      sphinxy.cache(0,0,sphinxy.image.width,sphinxy.image.height);
+
+    });
+
+  sphinxy.filters = [
+            new createjs.AlphaMaskFilter(sphC.cacheCanvas)
+          ];
+
+  sphinxy.cache(0,0,sphinxy.image.width,sphinxy.image.height);
+
+}
+
+
+
+
 
  var buyNow = new createjs.Bitmap('img/buynow-red.png');
 buyNow.x = 190;
@@ -362,15 +383,16 @@ broke3.scaleY = 0.6;
  logosc3.alpha = 0;
 
  btn3.addEventListener('click', callSceneThree); 
+ btn3.alpha = 0.3;
 
 
 
 var sc3TL = new TimelineMax({ paused:true });
 
 sc3TL
-	.to(sphinxy, 1, {alpha:1})
+	//.to(sphinxy, 1, {alpha:1})
 	.to(buyNow, 1, {alpha:1})
-	.to(logosc3, 1, {alpha:1})
+	//.to(logosc3, 1, {alpha:1})
 	.to(broke, 0.4, {alpha:1, x:300, y:475, scaleX:1, scaleY:1})
 	.to(broke2, 0.4, {alpha:1, x:370, y:475, scaleX:1, scaleY:1})
 	.to(broke3, 0.4, {alpha:1, x:440, y:475, scaleX:1, scaleY:1})
@@ -401,7 +423,8 @@ sc3TL
 
 function callSceneOne(){
 sc1TL.reverse();
-createjs.Tween.get(oneBigEye).wait(1000).to({x:-900 }, 2500, createjs.Ease.cubicInOut).call(runSceneTwo); 
+createjs.Tween.get(oneBigEye).wait(2000)
+.to({x:-900 }, 2500, createjs.Ease.cubicInOut).call(runSceneTwo); 
 
 }; ///// END CALL SCENE 1
 
@@ -409,7 +432,10 @@ createjs.Tween.get(oneBigEye).wait(1000).to({x:-900 }, 2500, createjs.Ease.cubic
 
 function runSceneTwo(){  
 	sc2TL.play(); 
-	console.log('scene 2 called');  };
+
+var timeOut2 =  setTimeout(callSceneTwo, 5000);
+
+};
 
 
 function callSceneTwo(event){
@@ -419,7 +445,7 @@ function callSceneTwo(event){
 
 function runSceneThree( ) {
 	sc3TL.play();
-	console.log('scene 3 called');
+	var timeOut3 =  setTimeout(callSceneThree, 5000);
 
  }; 
 
