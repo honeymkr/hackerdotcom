@@ -317,13 +317,15 @@ top: 100px; }
 @media only screen and (max-width: 420px) {
     /* Style adjustments for viewports that meet the condition */
 
-#hero  { 
-position: relative;
-left: 10%;
-top: 20px; 
-width: 80%
-height: 80%;
+#thirdeye  { 
+
+    position: relative;
+    left: 2%;
+    top: 5px;
+    border: solid thin black;
+    background-color: black;
 }
+
 }
 
 
