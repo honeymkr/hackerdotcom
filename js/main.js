@@ -7,9 +7,19 @@ function buildSite (){
  var oneBigEye = new createjs.Container();
  stage.addChild(oneBigEye);
 
+//var preloadIt = new createjs.LoaderQueue(true);
+
+//preloadIt.on("complete", playHacker, this);
+//preloadIt.on("error", handleErrorResponse, this);
+
+// loadManifest for loading multiple files like this..
+
+
 var background = new createjs.Bitmap("img/_super.jpg");
 background.x = -50;
 oneBigEye.addChild(background);
+
+
 
 ////////  SCENE 1 //////////
 var scene1 = new createjs.Container();
@@ -41,9 +51,9 @@ glitchBod.image.onload = function() {   // LOAD, TWEEN, MASK UPDATE
   gl.cache(0,0,20,500);
 
 createjs.Tween.get(glitch, {loop:true})
-	.to({x:290}, 2000, createjs.Ease.quadOutIn)
+	.to({x:310}, 2000, createjs.Ease.quadOutIn)
   	.on("change", function() { 
-    	gl.cache(0,0,110,500); 
+    	gl.cache(0,0,310,500); 
       glitchBod.cache(0,0,glitchBod.image.width,glitchBod.image.height);
 
     });
@@ -86,6 +96,16 @@ pulse0.x = 150;
 pulse0.alpha = 0;
 
 btn1.addEventListener('click', callSceneOne);
+btn1.on('mouseover', function(){
+	this.alpha = 0.5;
+});
+
+btn1.on('mouseout', function (){
+
+	this.alpha = 1;
+});
+
+
 
 // ADD TIMEOUT HERE =>
 
@@ -132,7 +152,7 @@ var scene2 = new createjs.Container();
 var cryptoFace = new createjs.Bitmap('img/egypt-lips.png');
 cryptoFace.scaleX = 1;   cryptoFace.scaleY = 1;
 cryptoFace.x = 150;   cryptoFace.y = 210;
-//cryptoFace.alpha = 0;
+cryptoFace.alpha = 0;
 
 var cryptoMask = new createjs.Shape();  // SHAPE
 var mskC = new createjs.Container();     // CONTAINER
@@ -160,7 +180,6 @@ createjs.Tween.get(cryptoMask, {loop:false}).to({ scaleY:20}, 2000, createjs.Eas
   cryptoFace.cache(0,0,cryptoFace.image.width,cryptoFace.image.height);
 
 }
-
 
 
 var cryptoFan = new createjs.Bitmap('img/miningfan_clean3.png');
@@ -197,31 +216,44 @@ createjs.Tween.get(cryptoFan3, {loop:-1 })
 var payment = new createjs.Bitmap('img/cc-icons.png');
 payment.x = 490;
 payment.y = 125;
+payment.alpha = 0;
 
 var btc = new createjs.Bitmap('img/btc.png');
 btc.x = 490;
 btc.y = 80;
 btc.scaleY = 0.3;
 btc.scaleX = 0.3;
+btc.alpha = 0;
 
 
 var get_rich = new createjs.Bitmap('img/getrich-wh.png');
 get_rich.x = 180;
 get_rich.y = 490;
+get_rich.alpha = 0;
 
 
-var graphics2 = new createjs.Graphics().beginFill("#000")
-.drawRect(135,182,400,37);
+var graphics2 = new createjs.Graphics().beginFill("#000").drawRect(135,182,400,37);
 var btn2 = new createjs.Shape(graphics2);
 btn2.addEventListener('click', callSceneTwo);
 btn2.cursor = 'pointer';
+
+btn2.on('mouseover', function(){
+	this.alpha= 0.5;
+});
+btn2.on('mouseout', function(){
+this.alpha = 1;
+});
 
 
 var logosc2 = new createjs.Bitmap('img/hacker_green.png')
 logosc2.x = 135;
 logosc2.y = 182;
 logosc2.alpha = 0;
-//var wealthClip = new createjs.MovieClip({loop:-1});
+
+var jpBlack = new createjs.Bitmap('img/jp_buynow_lg.png');
+jpBlack.x = 100;
+jpBlack.y = 500;
+jpBlack.alpha = 0;
 
 //////////  INSTANT WEALTH ///////////////////////
 
@@ -256,27 +288,20 @@ createjs.Tween.get(imgSheen, {loop:true}).to({y:300}, 1500, createjs.Ease.quadOu
 
 }
 
-//////////// ANT MINER
 
-
-//var miner = new createjs.Bitmap('img/antminer.png');
-//miner.x = 440;
-//miner.y = 80;
-var jpBlack = new createjs.Bitmap('img/jp_buynow_lg.png');
-jpBlack.x = 100;
-jpBlack.y = 500;
-
-
-//var instantWealth = new createjs.Bitmap('img/instantwealth.png');
-// think the fan needs its own tween to add to sc2TL
-
-var sc2TL = new TimelineMax({ paused:true, loop:-1 });
+var sc2TL = new TimelineMax({ paused:true });
 
 sc2TL
+	.to(get_rich, 0.1, {alpha:1}).to(get_rich, 0.1, {alpha:0})
+	.to(get_rich, 0.1, {alpha:1}).to(get_rich, 0.1, {alpha:1}).to(get_rich, 0.1, {alpha:0})
+	.to(get_rich, 0.1, {alpha:1}).to(get_rich, 0.1, {alpha:1}).to(get_rich, 0.1, {alpha:0})
+	.to(get_rich, 0.1, {alpha:1})
+	.to(jpBlack, 0.4, {alpha:1})
 	.to(cryptoFace, 0.5, {alpha:1})
 	//.to(instantWealth, 1, {alpha:1})
 	.to(cryptoFan, 0.5, {alpha:1, rotation:360})
-	.to(logosc2, 0.5, {alpha:1})
+	.to(logosc2, 0.5, {alpha:1}).to(payment, 0.3, {alpha:1})
+	.to(btc, 0.3, {alpha:1})
 	;
 
 //////////////////// STAGE ADDITIONS  //////////////////////////////
@@ -343,22 +368,13 @@ secOne.y = -40
 secOne.scaleX = 0.8;
 secOne.scaleY = 0.8;
 secOne.alpha = 0;
-//secOne.rotation = 180;
 
-
-
-//  	var secTwo = new createjs.Bitmap('img/security_cam2.png');
-//  	secTwo.scaleX = 0.6;
-//  	secTwo.scaleY = 0.6;
-//  	secTwo.x = 10;
-//  	secTwo.y = 10;
-//  	secTwo.alpha = 0;
 
 //var buyBroken = new createjs.Bitmap('img/buy-now-broken.png');
 //buyBroken.x = 180;
 //buyBroken.y = 180;
 
-var secrets = new createjs.Bitmap('img/$E¢R3T$_white.png');
+var secrets = new createjs.Bitmap('img/secrets_white.png');
 secrets.y = 260;
 secrets.x = 70;
 
@@ -404,6 +420,17 @@ broke3.scaleY = 0.6;
  var graphics3 = new createjs.Graphics().beginFill("#000").drawRect(0,0,400, 37 );
  var btn3 = new createjs.Shape(graphics3);
  btn3.addEventListener('click', callSceneThree);
+btn3.cursor = "pointer";
+
+btn3.on('mouseover', function(){
+	this.alpha = 0.5;
+});
+
+btn3.on('mouseout', function(){
+	this.alpha=1;
+});
+
+
 
  var logosc3 = hacker.clone();
  logosc3.x = 0;
@@ -461,8 +488,9 @@ function runSceneTwo(){
 
 
 function callSceneTwo(event){
-
-	createjs.Tween.get(oneBigEye).to({x:-1800 }, 1500, createjs.Ease.cubicInOut).call(runSceneThree);
+	sc2TL.reverse();
+	createjs.Tween.get(oneBigEye).to({x:-1800 }, 1500, createjs.Ease.cubicInOut)
+	.call(runSceneThree);
 };
 
 function runSceneThree( ) {
@@ -473,7 +501,7 @@ function runSceneThree( ) {
 
 
 function callSceneThree(event){
-
+	sc3TL.reverse();
 	createjs.Tween.get(oneBigEye).to({x:0 }, 2500, createjs.Ease.cubicInOut).call(runSceneOne);
 
 };
