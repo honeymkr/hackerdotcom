@@ -444,9 +444,7 @@ btn3.on('mouseout', function(){
 var sc3TL = new TimelineMax({ paused:true });
 sc3TL
 	.to(btn3, 1, {y:0})
-	//.set(secOne,{rotation:180})
 	.to(buyNow, 1, {alpha:1})
-	//.to(logosc3, 1, {alpha:1})
 	.to(logosc3, 0.3, {alpha:1})
 	.to(broke, 0.4, {alpha:1, x:300, y:475, scaleX:1, scaleY:1})
 	.to(broke2, 0.4, {alpha:1, x:370, y:475, scaleX:1, scaleY:1})
@@ -464,12 +462,6 @@ sc3TL
 
 /////////////////////   CONTROLS FOR SCENES _ SWITCHING BETWEEN
 
-
-
- //var mc = new createjs.MovieClip({loop:-1, labels:{myLabel:20}});
- //stage.addChild(mc);
-
-
 function callSceneOne(){
 sc1TL.reverse();
 createjs.Tween.get(oneBigEye).wait(1500)
@@ -477,15 +469,11 @@ createjs.Tween.get(oneBigEye).wait(1500)
 
 }; ///// END CALL SCENE 1
 
-
-
 function runSceneTwo(){  
 	sc2TL.play(); 
-
 //var timeOut2 =  setTimeout(callSceneTwo, 5000);
 
 };
-
 
 function callSceneTwo(event){
 	sc2TL.reverse();
@@ -502,7 +490,7 @@ function runSceneThree( ) {
 
 function callSceneThree(event){
 	sc3TL.reverse();
-	createjs.Tween.get(oneBigEye).to({x:0 }, 2500, createjs.Ease.cubicInOut).call(runSceneOne);
+	createjs.Tween.get(oneBigEye).to({x:0 }, 2000, createjs.Ease.cubicInOut).call(runSceneOne);
 
 };
 
@@ -521,6 +509,7 @@ console.log("scene1 called ");
 
 	scene3.x = 1800;
 	scene3.y = 0;
+	
 /// DIVE MORE INTO TICKER< HUH?
 //createjs.Ticker.setFPS(60);
 createjs.Ticker.addEventListener("tick", stage);
