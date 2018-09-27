@@ -355,11 +355,36 @@ createjs.Tween.get(sphMask, {loop:true, bounce:true}).to({y:500}, 2000, createjs
 
  var buyNow = new createjs.Bitmap('img/buynow-red.png');
 buyNow.x = 80;
-buyNow.y = 190;
+buyNow.y = 180;
 buyNow.scaleX = 0.7;
 buyNow.scaleY = 0.7;
 buyNow.alpha = 0;
 //buyNow.addEventListener('click', callSceneThree); 
+
+// spritesheet data
+var buyImage = {
+        images: ["img/buy_now_glitch.png"],
+        frames: {width:302, height:132, count:3, regX:1, regY:1, spacing:0, margin:0},
+        animations: { over:0, out:1, out:2  },
+    };
+
+ var spriteSheet = new createjs.SpriteSheet(buyImage);
+ var buyMe = new createjs.Sprite(spriteSheet, "out" );
+ buyMe.x = 100;
+ buyMe.y = 50;
+
+spriteSheet.on("complete", function(event) {	console.log("Complete", event);		});
+spriteSheet.on("error", function(event) {	console.log("Error", event);		});
+
+ var buyMore = new createjs.ButtonHelper(buyMe, "over", "out", "out", false, buyMe, "hit"); 
+ buyMe.addEventListener("click", handleClick);
+ 
+
+ function handleClick(event) {
+ 	console.log('buy clicked');
+
+     // Click Happened.
+ }
 
 
 var secOne = new createjs.Bitmap('img/security_cam.png');
@@ -377,19 +402,6 @@ secOne.alpha = 0;
 var secrets = new createjs.Bitmap('img/secrets_white.png');
 secrets.y = 260;
 secrets.x = 70;
-
-//var moMoney = get_rich.clone();
-//moMoney.x = 70;
-//moMoney.y = 200;
-
-//var newAlgo = new createjs.Bitmap('img/new_algos.png');
-//newAlgo.x = 15;
-//newAlgo.y = 270;
-
-//var babyFace = new createjs.Bitmap('img/babyface.png');
-//babyFace.x = 300;
-//babyFace.y = 212;
-//babyFace.alpha = 0.5;
 
 var jp_buynow = new createjs.Bitmap('img/jp_buynow.png');
 jp_buynow.x = 220;
@@ -456,6 +468,7 @@ sc3TL
  oneBigEye.addChild(scene3)
 
  scene3.addChild(sphinxy, sphinxyCut);
+ scene3.addChild(buyMe);
  scene3.addChild( btn3, logosc3, broke, broke2, broke3, jp_buynow );
  scene3.addChild(secrets, buyNow, secOne);
 
