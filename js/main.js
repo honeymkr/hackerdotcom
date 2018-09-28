@@ -2,10 +2,13 @@
 // BASIC HACK_TOGETHER OF COOL_ART OBJECTS 
 function buildSite (){
  var stage = new createjs.Stage("thirdeye");
-	stage.enableMouseOver(10);
+	stage.enableMouseOver(20);
 
  var oneBigEye = new createjs.Container();
  stage.addChild(oneBigEye);
+
+  //buyImage.crossOrigin="Anonymous";
+   // img.src = "http://server-with-CORS-support.com/path/to/image.jpg";
 
 //var preloadIt = new createjs.LoaderQueue(true);
 
@@ -353,37 +356,36 @@ createjs.Tween.get(sphMask, {loop:true, bounce:true}).to({y:500}, 2000, createjs
   sphinxyCut.cache(0,0,sphinxy.image.width,sphinxy.image.height);
 }
 
- var buyNow = new createjs.Bitmap('img/buynow-red.png');
-buyNow.x = 80;
-buyNow.y = 180;
-buyNow.scaleX = 0.7;
-buyNow.scaleY = 0.7;
-buyNow.alpha = 0;
-//buyNow.addEventListener('click', callSceneThree); 
-
 // spritesheet data
 var buyImage = {
         images: ["img/buy_now_glitch.png"],
-        frames: {width:302, height:132, count:3, regX:1, regY:1, spacing:0, margin:0},
-        animations: { over:0, out:1, out:2  },
+        frames: {width:302, height:132, count:3, regX:0, regY:0, spacing:0, margin:0},
+        animations: { over:0, down:1, out:2  },
     };
 
  var spriteSheet = new createjs.SpriteSheet(buyImage);
  var buyMe = new createjs.Sprite(spriteSheet, "out" );
- buyMe.x = 100;
- buyMe.y = 50;
+ buyMe.x = 125;
+ buyMe.y = 125;
+ buyMe.alpha = 0;
 
 spriteSheet.on("complete", function(event) {	console.log("Complete", event);		});
 spriteSheet.on("error", function(event) {	console.log("Error", event);		});
 
- var buyMore = new createjs.ButtonHelper(buyMe, "over", "out", "out", false, buyMe, "hit"); 
- buyMe.addEventListener("click", handleClick);
+ var buyMore = new createjs.ButtonHelper(buyMe, "out", "over", "down", false, null, "hit"); 
+ buyMe.addEventListener("click", callPlease);
  
+ var please = new createjs.Bitmap('img/please.png');
+ please.x = 475;
+ please.y = -100;
+ please.scaleX = 0.5;
+ please.scaleY = 0.5;
+ please.alpha = 0;
 
- function handleClick(event) {
- 	console.log('buy clicked');
 
-     // Click Happened.
+ function callPlease(event) {
+	createjs.Tween.get(please).to({alpha:1, y:10 }, 100);
+	buyMe.removeEventListener("click", callPlease );
  }
 
 
@@ -394,26 +396,23 @@ secOne.scaleX = 0.8;
 secOne.scaleY = 0.8;
 secOne.alpha = 0;
 
-
-//var buyBroken = new createjs.Bitmap('img/buy-now-broken.png');
-//buyBroken.x = 180;
-//buyBroken.y = 180;
-
 var secrets = new createjs.Bitmap('img/secrets_white.png');
 secrets.y = 260;
-secrets.x = 70;
+secrets.x = 770;
 
 var jp_buynow = new createjs.Bitmap('img/jp_buynow.png');
 jp_buynow.x = 220;
 jp_buynow.y = 505;
 jp_buynow.alpha = 0;
 
+
+
 var broke = new createjs.Bitmap('img/brokenlink-sm.png');
 broke.x = 280; //300;
 broke.y = 455; //475;
 broke.alpha = 0;
-broke.scaleX = 0.6;
-broke.scaleY = 0.6;
+//broke.scaleX = 0.6;
+//broke.scaleY = 0.6;
 
 var broke2 = broke.clone();
 broke2.x = 350;
@@ -428,6 +427,9 @@ broke3.y = 455;
 broke3.alpha = 0;
 broke3.scaleX = 0.6;
 broke3.scaleY = 0.6;
+
+//var please = new createjs.Bitmap("img/please.png");
+
 
  var graphics3 = new createjs.Graphics().beginFill("#000").drawRect(0,0,400, 37 );
  var btn3 = new createjs.Shape(graphics3);
@@ -456,21 +458,21 @@ btn3.on('mouseout', function(){
 var sc3TL = new TimelineMax({ paused:true });
 sc3TL
 	.to(btn3, 1, {y:0})
-	.to(buyNow, 1, {alpha:1})
 	.to(logosc3, 0.3, {alpha:1})
 	.to(broke, 0.4, {alpha:1, x:300, y:475, scaleX:1, scaleY:1})
 	.to(broke2, 0.4, {alpha:1, x:370, y:475, scaleX:1, scaleY:1})
 	.to(broke3, 0.4, {alpha:1, x:440, y:475, scaleX:1, scaleY:1})
 	.to(jp_buynow, 0.2, {alpha:1})
 	.to(secOne, 0.3, {alpha:1, y:40})
+	.to(buyMe, 0.5, {alpha:1}).to(secrets, 1, {x:70})
 	  ; /// END TL
 
  oneBigEye.addChild(scene3)
 
- scene3.addChild(sphinxy, sphinxyCut);
+ scene3.addChild(please, sphinxy, sphinxyCut);
  scene3.addChild(buyMe);
  scene3.addChild( btn3, logosc3, broke, broke2, broke3, jp_buynow );
- scene3.addChild(secrets, buyNow, secOne);
+ scene3.addChild(secrets, secOne);
 
 
 /////////////////////   CONTROLS FOR SCENES _ SWITCHING BETWEEN
@@ -503,6 +505,9 @@ function runSceneThree( ) {
 
 function callSceneThree(event){
 	sc3TL.reverse();
+	createjs.Tween.get(please).to({y:-100});
+	buyMe.addEventListener("click", callPlease);
+	
 	createjs.Tween.get(oneBigEye).to({x:0 }, 2000, createjs.Ease.cubicInOut).call(runSceneOne);
 
 };
