@@ -1,0 +1,25 @@
+{
+
+"images": [
+    "buy_now_glitch.png"
+],
+
+"framerate": 20,
+"frames": [
+    [1, 1, 300, 130, 0, 0, 0],
+    [303, 1, 300, 130, 0, 0, 0],
+    [605, 1, 300, 130, 0, 0, 0]
+],
+
+"animations": {
+    "buynow-glitch": { "frames": [0] },
+    "buynow-glitchDown": { "frames": [1] },
+    "buynow-red": { "frames": [2] }
+},
+
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:f766bf65c577d4aeba28ea6cdf388914:76d876abb43aee8e1fbd4895cfdc0a4d:ac143c21b84406f844f16f8caab08176$",
+        "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
+]
+
+}

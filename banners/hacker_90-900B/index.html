@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <title>HACKER BANNER</title>
+
+        <meta name="description" content="banner900x90">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+       <style>
+    body {
+    background-color: #682b8d;
+    font-size: 1em;
+    line-height: 1.4;
+    }
+
+    #container { 
+    border: solid thin black;
+    background: white;
+    }
+
+   </style>
+
+    <script src="js/createjs.min.js"></script>
+     <script type="text/javascript">
+            
+    var canvas;
+    var stage;
+
+    function init() {
+        //find canvas and load images, wait for last image to load
+        canvas = document.getElementById("container");
+        stage = new createjs.Stage(canvas);
+
+            var background = new createjs.Bitmap('img/bg-b.png');
+            stage.addChild(background);
+
+            var mnts = new createjs.Bitmap('img/mnts-b.png');
+            mnts.x = 0;
+            mnts.y = 100;
+            stage.addChild(mnts);
+
+            var hackerlogo = new createjs.Bitmap('img/hackerlogo-white.png');
+            hackerlogo.x = -350;
+            hackerlogo.y = 8;
+            //hackerlogo.alpha = 0;
+            stage.addChild(hackerlogo);
+
+            var buynow = new createjs.Bitmap('img/buy-now-sm.png');
+            buynow.x = 200;
+            buynow.y = 40;
+            buynow.alpha = 0;
+            stage.addChild(buynow);
+
+            var jpblack = new createjs.Bitmap('img/buy-now-jpblack.png');
+            jpblack.scaleX = 0.7;
+            jpblack.scaleY = 0.7;
+            jpblack.x = 340;
+            jpblack.y = 100;
+            //jpblack.alpha = 0;
+            stage.addChild(jpblack);
+             
+            var spycam = new createjs.Bitmap('img/spy.png');
+            spycam.x = 893;
+            spycam.y = -50;
+            spycam.scaleX = -1;
+            //spycam.alpha = 0;
+            stage.addChild(spycam);
+
+            var fungus = new createjs.Bitmap('img/glitch-pattern.png');
+                fungus.x = 100;
+                fungus.alpha = 0;
+                stage.addChild(fungus);
+
+
+            var instantMask = new createjs.Shape();  // SHAPE
+            var mskC = new createjs.Container();     // CONTAINER
+            mskC.addChild(instantMask);
+
+            fungus.image.onload = function() {   // LOAD, TWEEN, MASK UPDATE
+            instantMask.graphics.beginFill('#fff').drawRect(0, 0, 20, 25);
+            mskC.cache(0,0,20,25);
+
+            createjs.Tween.get(instantMask, {loop:true, bounce:true}).to({ y:90}, 1000, createjs.Ease.quadOutIn).wait(500)
+            .on("change", function() { 
+               mskC.cache(0,0,209,258); 
+                  fungus.cache(0,0,fungus.image.width,fungus.image.height);
+
+             });
+            fungus.filters = [
+            new createjs.AlphaMaskFilter(mskC.cacheCanvas)
+            ];
+             fungus.cache(0,0,fungus.image.width,fungus.image.height);
+            }
+
+
+
+            var msg = new createjs.Timeline(
+
+                createjs.Tween.get(mnts).wait(600).to({y:15}, 1000, createjs.Ease.circInOut),
+                createjs.Tween.get(jpblack).wait(1500).to({y:45}, 600, createjs.Ease.circInOut),
+
+                createjs.Tween.get(hackerlogo).wait(2000).to({x:200}, 600, createjs.Ease.circInOut),
+                createjs.Tween.get(spycam).wait(2500).to({y:2}, 300),
+                createjs.Tween.get(buynow).wait(3500).to({alpha:1}, 300),
+                createjs.Tween.get(fungus).to({alpha:1}, 500),
+        
+                );
+
+
+
+            createjs.Ticker.addEventListener("tick", stage);
+            stage.update();
+
+                };
+
+        </script>
+
+
+
+    </head>
+
+    <body onload="init()">
+
+    <canvas id="container" width="900" height="90"> </canvas>
+
+
+
+
+
+    </body>
+</html>

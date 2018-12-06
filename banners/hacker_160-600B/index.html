@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <title>HACKER BANNER</title>
+
+        <meta name="description" content="banner160x600">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+       <style>
+    body {
+    background-color: #682b8d;
+    font-size: 1em;
+    line-height: 1.4;
+    }
+
+    #container { 
+    border: solid thin black;
+    background: white;
+    }
+
+   </style>
+
+    <script src="js/createjs.min.js"></script>
+     <script type="text/javascript">
+            
+    var canvas;
+    var stage;
+
+    function init() {
+        //find canvas and load images, wait for last image to load
+        canvas = document.getElementById("container");
+        stage = new createjs.Stage(canvas);
+
+            var background = new createjs.Bitmap('img/bg-b.png');
+            stage.addChild(background);
+
+            var outOfBodyWhite = new createjs.Bitmap('img/outofbody-white.png');
+            outOfBodyWhite.x = 25;
+            outOfBodyWhite.y = 702;
+            stage.addChild(outOfBodyWhite);
+
+             var outOfBodyRed = new createjs.Bitmap('img/outofbody-red.png');
+            outOfBodyRed.x = 20;
+            outOfBodyRed.y = 72;
+            outOfBodyRed.alpha = 0;
+            stage.addChild(outOfBodyRed);
+
+            var jphack = new createjs.Bitmap('img/hack-jp.png');
+            jphack.x = 77;
+            jphack.y = 545;
+            stage.addChild(jphack);
+
+            var hackStack = new createjs.Bitmap('img/hackerdotcom-black.png');
+            hackStack.x = 11;
+            hackStack.y = 160;
+            hackStack.alpha = 0;
+            stage.addChild(hackStack);
+
+            var hackStackYell = new createjs.Bitmap('img/hackerdotcom-yellow.png');
+            hackStackYell.x = 11;
+            hackStackYell.y = 162;
+            stage.addChild(hackStackYell);
+
+
+    var hackMask = new createjs.Shape();  // SHAPE
+      var mskC = new createjs.Container();     // CONTAINER
+      mskC.addChild(hackMask);
+
+      hackStackYell.image.onload = function() {   // LOAD, TWEEN, MASK UPDATE
+      hackMask.graphics.beginFill('#fff').drawRect(0, -20, 160, 20);
+      mskC.cache(0,-20,210,25);
+
+      createjs.Tween.get(hackMask, {loop:true, bounce:true}).to({ y:300}, 50, createjs.Ease.quadOutIn)
+       .on("change", function() { 
+          mskC.cache(0,0,140,290); 
+             hackStackYell.cache(0,0,hackStackYell.image.width,hackStackYell.image.height);
+
+        });
+       hackStackYell.filters = [
+       new createjs.AlphaMaskFilter(mskC.cacheCanvas)
+       ];
+        hackStackYell.cache(0,0,hackStackYell.image.width,hackStackYell.image.height);
+       }
+            var buynow = new createjs.Bitmap('img/buy-now-sm.png');
+            buynow.x = 14;
+            buynow.y = 14;
+            buynow.alpha = 0;
+            stage.addChild(buynow);
+
+        
+            var msg = new createjs.Timeline(
+
+                createjs.Tween.get(outOfBodyWhite).to({y:72}, 1200, createjs.Ease.circInOut),
+                createjs.Tween.get(outOfBodyRed).wait(1500).to({alpha:1,}, 500),
+                createjs.Tween.get(outOfBodyRed,{ loop:true, bounce:true }).wait(600).to({x:30}, 2000, createjs.Ease.circInOut),
+                createjs.Tween.get(hackStack).wait(2000).to({alpha:0.1}, 300),
+                createjs.Tween.get(buynow).wait(3000).to({alpha:1}, 300),
+
+                );
+
+
+
+            createjs.Ticker.addEventListener("tick", stage);
+            stage.update();
+
+                };
+
+        </script>
+
+
+
+    </head>
+
+    <body onload="init()">
+
+    <canvas id="container" width="160" height="600"> </canvas>
+
+
+
+
+
+    </body>
+</html>

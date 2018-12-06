@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <title>HACKER BANNER</title>
+
+        <meta name="description" content="banner900x90">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+       <style>
+    body {
+    background-color: #682b8d;
+    font-size: 1em;
+    line-height: 1.4;
+    }
+
+    #container { 
+    border: solid thin black;
+    background: white;
+    }
+
+   </style>
+
+    <script src="js/createjs.min.js"></script>
+     <script type="text/javascript">
+            
+    var canvas;
+    var stage;
+
+    function init() {
+        //find canvas and load images, wait for last image to load
+        canvas = document.getElementById("container");
+        stage = new createjs.Stage(canvas);
+
+            var background = new createjs.Bitmap('img/bg-a.png');
+            stage.addChild(background);
+
+            var mnts = new createjs.Bitmap('img/mnts-a.png');
+            mnts.x = 0;
+            mnts.y = 100;
+            stage.addChild(mnts);
+
+            var buynow = new createjs.Bitmap('img/buy-now-sm.png');
+            buynow.x = 542;
+            buynow.y = 40;
+            buynow.alpha = 0;
+            stage.addChild(buynow);
+
+            var jpblack = new createjs.Bitmap('img/buy-now-jpblack.png');
+            jpblack.scaleX = 0.7;
+            jpblack.scaleY = 0.7;
+            jpblack.x = 70;
+            jpblack.y = -100;
+            //jpblack.alpha = 0;
+            stage.addChild(jpblack);
+             
+               var hackerlogo = new createjs.Bitmap('img/hackerlogo-white.png');
+            hackerlogo.x = -300;
+            hackerlogo.y = 10;
+            //hackerlogo.alpha = 0;
+            stage.addChild(hackerlogo);
+
+
+             var getrich = new createjs.Bitmap('img/get-rich.png');
+            getrich.x = 60;
+            getrich.y = 60;
+            getrich.alpha = 0;
+            stage.addChild(getrich);
+             
+            var spycam = new createjs.Bitmap('img/spy.png');
+            spycam.x = 2;
+            spycam.y = -40;
+            spycam.scaleX = 0.7;
+            spycam.scaleY = 0.7;
+            stage.addChild(spycam);
+
+
+
+            var msg = new createjs.Timeline(
+
+                createjs.Tween.get(mnts).wait(600).to({y:10}, 1000, createjs.Ease.circInOut),
+                createjs.Tween.get(jpblack).wait(1500).to({y:45}, 600, createjs.Ease.circInOut),
+
+                createjs.Tween.get(hackerlogo).wait(2000).to({x:400}, 600, createjs.Ease.circInOut),
+                createjs.Tween.get(spycam).wait(2500).to({y:2}, 300),
+                createjs.Tween.get(buynow).wait(3500).to({alpha:1}, 300),
+            
+
+
+                );
+
+
+
+            createjs.Ticker.addEventListener("tick", stage);
+            stage.update();
+
+                };
+
+        </script>
+
+
+
+    </head>
+
+    <body onload="init()">
+
+    <canvas id="container" width="900" height="90"> </canvas>
+
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <title>HACKER BANNER</title>
+
+        <meta name="description" content="banner160x600">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+       <style>
+    body {
+    background-color: #682b8d;
+    font-size: 1em;
+    line-height: 1.4;
+    }
+
+    #container { 
+    border: solid thin black;
+    background: white;
+    }
+
+   </style>
+
+    <script src="js/createjs.min.js"></script>
+     <script type="text/javascript">
+            
+    var canvas;
+    var stage;
+
+    function init() {
+        //find canvas and load images, wait for last image to load
+        canvas = document.getElementById("container");
+        stage = new createjs.Stage(canvas);
+
+            var background = new createjs.Bitmap('img/bg-a.png');
+            stage.addChild(background);
+
+            var floaterWhite = new createjs.Bitmap('img/floater-white.png');
+            floaterWhite.x = 160;
+            floaterWhite.y = 50;
+            stage.addChild(floaterWhite);
+
+            var floaterOrange = new createjs.Bitmap('img/floater-orange.png');
+            floaterOrange.x = 25;
+            floaterOrange.y = 52;
+            stage.addChild(floaterOrange);
+
+
+            var instantMask = new createjs.Shape();  // SHAPE
+            var mskFloat = new createjs.Container();     // CONTAINER
+            mskFloat.addChild(instantMask);
+
+            floaterOrange.image.onload = function() {   // LOAD, TWEEN, MASK UPDATE
+            instantMask.graphics.beginFill('#fff').drawRect(-50, 0, 20, 475);
+            mskFloat.cache(-50,0,20,475);
+
+            //;
+            floaterOrange.filters = [
+            new createjs.AlphaMaskFilter(mskFloat.cacheCanvas)
+            ];
+             floaterOrange.cache(0,0,floaterOrange.image.width,floaterOrange.image.height);
+            }
+
+            var jphack = new createjs.Bitmap('img/hack-jp.png');
+            jphack.x = 75;
+            jphack.y = 8;
+            stage.addChild(jphack);
+
+
+            var hackStackWhite = new createjs.Bitmap('img/hackerdotcom-white.png');
+            hackStackWhite.x = 11;
+            hackStackWhite.y = 140;
+            hackStackWhite.alpha = 0;
+            stage.addChild(hackStackWhite);
+
+
+            var hackStack = new createjs.Bitmap('img/hackerdotcom-black.png');
+            hackStack.x = 11;
+            hackStack.y = 140;
+            stage.addChild(hackStack);
+
+                 var hackMask = new createjs.Shape();  // SHAPE
+              var mskC = new createjs.Container();     // CONTAINER
+            mskC.addChild(hackMask);
+
+            hackStack.image.onload = function() {   // LOAD, TWEEN, MASK UPDATE
+            hackMask.graphics.beginFill('#fff').drawRect(0, -20, 160, 20);
+            mskC.cache(0,-20,210,25);
+
+            createjs.Tween.get(hackMask, {loop:true, bounce:true}).to({ y:300}, 50, createjs.Ease.quadOutIn)
+             .on("change", function() { 
+                mskC.cache(0,0,140,290); 
+             hackStack.cache(0,0,hackStack.image.width,hackStack.image.height);
+
+        });
+       hackStack.filters = [
+       new createjs.AlphaMaskFilter(mskC.cacheCanvas)
+       ];
+        hackStack.cache(0,0,hackStack.image.width,hackStack.image.height);
+       }
+
+            var buynow = new createjs.Bitmap('img/buy-now-sm.png');
+            buynow.x = 14;
+            buynow.y = 540;
+            buynow.alpha = 0;
+            stage.addChild(buynow);
+
+          
+
+            
+
+            var msg = new createjs.Timeline(
+                createjs.Tween.get(floaterWhite).to({x:25}, 900, createjs.Ease.circInOut),
+                createjs.Tween.get(floaterWhite, {loop:true, bounce:true }).wait(1200).to({y:62}, 1200, createjs.Ease.circInOut),
+                createjs.Tween.get(buynow).wait(2400).to({alpha:1}, 300),
+
+                createjs.Tween.get(instantMask, {loop:true, bounce:true}).wait(3000)
+            .to({ x:200}, 1800, createjs.Ease.quadOutIn).wait(500)
+            .on("change", function() { 
+               mskFloat.cache(0,0,146,471); 
+                  floaterOrange.cache(       0,0,   floaterOrange.image.width,floaterOrange.image.height);
+
+             }),
+            createjs.Tween.get(hackStackWhite).wait(2000).to({alpha:0.1}, 300),
+
+
+                //createjs.Tween.get(redEye).wait(500).to({alpha:1}, 300),
+                //createjs.Tween.get(miningfan).wait(1000).to({alpha:1}, 300),
+                //createjs.Tween.get(spycam).wait(1500).to({alpha:1}, 300),
+                //createjs.Tween.get(cryptoface2).wait(2000).to({alpha:1}, 1000),
+                //createjs.Tween.get(buynow).wait(2500).to({alpha:1}, 300),
+
+
+                );
+
+
+
+            createjs.Ticker.addEventListener("tick", stage);
+            stage.update();
+
+                };
+
+        </script>
+
+
+
+    </head>
+
+    <body onload="init()">
+
+    <canvas id="container" width="160" height="600"> </canvas>
+
+
+
+
+
+    </body>
+</html>
